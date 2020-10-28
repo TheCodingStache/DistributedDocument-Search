@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DocumentData {
-    private Map<String, Double> termToFrequency = new HashMap<String, Double>();
+    private final Map<String, Double> termToFrequency = new HashMap<>();
 
     public void putTermFreq(String term, double freq) {
         termToFrequency.put(term, freq);
     }
 
-    public void getFrequency(String term) {
-        termToFrequency.get(term);
+    public double getFrequency(String term) {
+        return termToFrequency.get(term);
     }
 }
