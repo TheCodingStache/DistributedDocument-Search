@@ -7,12 +7,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class SequentialSearch {
     public static final String BOOKS_DIRECTORY = "./resources/books";
-    public static final String SEARCH_QUERY_1 = "The girls that falls through a rabbit hole";
-    public static final String SEARCH_QUERY_2 = "";
+    public static final String SEARCH_QUERY_1 = "scene where katniss eats on the train first time bread butter";
+    public static final String SEARCH_QUERY_2 = "katniss story about father";
     public static final String SEARCH_QUERY_3 = "";
 
     public static void main(String[] args) throws FileNotFoundException {
@@ -20,7 +19,7 @@ public class SequentialSearch {
         List<String> documents = Arrays.stream(Objects.requireNonNull(documentsDirectory.list()))
                 .map(documentName -> BOOKS_DIRECTORY + "/" + documentName)
                 .collect(Collectors.toList());
-        List<String> terms = TFIDF.getWordsFromLine(SEARCH_QUERY_1);
+        List<String> terms = TFIDF.getWordsFromLine(SEARCH_QUERY_2);
         findMostRelevantDocuments(documents, terms);
 
     }

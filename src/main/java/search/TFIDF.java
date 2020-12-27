@@ -12,16 +12,15 @@ public class TFIDF {
                 count++;
             }
         }
-        double termFrequency = (double) count / words.size();
-        return termFrequency;
+        return (double) count / words.size();
     }
 
     public static DocumentData createDocumentData(List<String> words, List<String> terms) {
         DocumentData documentData = new DocumentData();
-        for (String term : terms) {
+        terms.forEach(term -> {
             double termFreq = calculateTermFreq(words, term.toLowerCase());
             documentData.putTermFreq(term, termFreq);
-        }
+        });
         return documentData;
     }
 
@@ -40,10 +39,10 @@ public class TFIDF {
     private static Map<String, Double> getTermToInverseDocumentFreqMap(List<String> terms,
                                                                        Map<String, DocumentData> documentResults) {
         Map<String, Double> termToIDF = new HashMap<>();
-        for (String term : terms) {
+        terms.forEach(term -> {
             double idf = getInverseDocumentFrequency(term, documentResults);
             termToIDF.put(term, idf);
-        }
+        });
         return termToIDF;
     }
 
@@ -62,11 +61,11 @@ public class TFIDF {
     public static Map<Double, List<String>> getDocumentsSortedByScore(List<String> terms, Map<String, DocumentData> documentResults) {
         TreeMap<Double, List<String>> documentsScore = new TreeMap<>();
         Map<String, Double> termToInverseDocumentFreq = getTermToInverseDocumentFreqMap(terms, documentResults);
-        for (String document : documentResults.keySet()) {
+        documentResults.keySet().forEach(document -> {
             DocumentData documentData = documentResults.get(document);
             double score = calculateDocumentScore(terms, documentData, termToInverseDocumentFreq);
             addDocumentScoreToTreeMap(documentsScore, score, document);
-        }
+        });
         return documentsScore.descendingMap();
     }
 
